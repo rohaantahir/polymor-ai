@@ -9,8 +9,7 @@ export default function Footer() {
           <div className="space-y-6">
             <Logo />
             <p className="text-white/60 text-sm pt-2">
-              Building the world's first intelligent edge AI nervous system—a
-              decentralized network of high-performance nodes.
+              Accelerate intelligence distribution
             </p>
           </div>
 

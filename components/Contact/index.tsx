@@ -72,27 +72,7 @@ export default function ContactPage() {
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium mb-2">Sales</h3>
-                <a
-                  href="mailto:business@polymor.ai"
-                  className="text-themeBlue hover:underline"
-                >
-                  business@polymor.ai
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-medium mb-2">Investor Relations</h3>
-                <a
-                  href="mailto:investor@polymor.ai"
-                  className="text-themeBlue hover:underline"
-                >
-                  investor@polymor.ai
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-medium mb-2">General Inquiries</h3>
+                {/* <h3 className="text-lg font-medium mb-2">Inquiries</h3> */}
                 <a
                   href="mailto:contact@polymor.ai"
                   className="text-themeBlue hover:underline"

@@ -16,7 +16,7 @@ const polypodVariants = [
       "N+1 or 2N redundant power and cooling infrastructure",
       "AI-ready and easily deployable",
     ],
-    // image: "/polypod.png",
+    image: "/polypod2.png",
   },
   {
     id: "polypod-hive",
@@ -29,7 +29,7 @@ const polypodVariants = [
       "PUE < 1.1 with advanced liquid cooling",
       "Ideal for telcos, ISPs, or regional AI edge nodes",
     ],
-    image: "/polypod-hive.png",
+    image: "/polypod-hive2.png",
   },
   {
     id: "polypod-go",

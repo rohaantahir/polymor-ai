@@ -35,9 +35,8 @@ const product_two = [
 
 const product_three = [
   {
-    title: `Polycloud${String.fromCharCode(8482)}`,
-    description:
-      '"AI factory" cloud infrastructure to turn GPU compute into tokens',
+    title: `PolyEdge${String.fromCharCode(8482)}`,
+    description: "The internet for Autonomous Systems.",
   },
 ];
 

@@ -68,7 +68,7 @@ export default function PartnersPage() {
     <div className="container mx-auto py-16">
       <div className="text-center mb-16">
         <Badge className="font-normal mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
-          Polynode Partners
+          PolyEdge Partners
         </Badge>
         <h1 className="text-5xl font-bold mb-6">Join Our Global Network</h1>
         <p className="max-w-[800px] mx-auto text-lg text-white/70">
@@ -91,7 +91,7 @@ export default function PartnersPage() {
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-6">
-            Polycloud doesn't just connect nodes.
+            PolyEdge doesn't just connect nodes.
             <br />
             It thinks. It routes. It optimizes.
           </h2>
@@ -128,7 +128,7 @@ export default function PartnersPage() {
 
       <div className="mb-24">
         <h2 className="text-3xl font-bold mb-12 text-center">
-          Why Become a Polycloud Edge Partner?
+          Why Become a PolyEdge Partner?
         </h2>
         <div className="space-y-8 max-w-6xl mx-auto relative">
           {/* Central pole */}

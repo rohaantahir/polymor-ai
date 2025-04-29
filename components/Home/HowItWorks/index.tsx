@@ -16,13 +16,13 @@ const steps = [
   {
     title: "Connect",
     description:
-      "Container will automatically connect to PolyNode after deployment — our serverless, AI-native orchestration platform.",
+      "Container will automatically connect to PolyEdge after deployment — our serverless, AI-native orchestration platform.",
     icon: Network,
   },
   {
     title: "Receive",
     description:
-      "PolyNode sends AI Workloads to your node automatically — no sales, no client acquisition needed.",
+      "PolyEdge sends AI Workloads to your node automatically — no sales, no client acquisition needed.",
     icon: Server,
   },
   {

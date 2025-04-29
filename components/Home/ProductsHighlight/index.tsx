@@ -10,10 +10,10 @@ import { useEffect, useRef, useState } from "react";
 
 const products = [
   {
-    title: "Polynode",
-    description: "Distributed Edge AI Cloud Network",
+    title: "PolyEdge",
+    description: "The Global AI Orchestration Network",
     image: "/polypod-cloud.png",
-    link: "/products#polynode",
+    link: "/products#PolyEdge",
   },
   {
     title: "Polypod",

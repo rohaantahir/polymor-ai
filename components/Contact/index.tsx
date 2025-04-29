@@ -195,7 +195,7 @@ export default function ContactPage() {
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="polynode">Polynode</SelectItem>
+                    <SelectItem value="polyedge">PolyEdge</SelectItem>
                     <SelectItem value="polypod">Polypod</SelectItem>
                     <SelectItem value="polyrack">Polyrack</SelectItem>
                     <SelectItem value="partnership">

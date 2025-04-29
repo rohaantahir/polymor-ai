@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import ProductPolynode from "./ProductPolynode";
+import ProductPolyEdge from "./ProductPolyEdge";
 import ProductPolypod from "./ProductPolypod";
 import ProductPolyrack from "./ProductPolyrack";
 
@@ -19,8 +19,8 @@ export default function ProductsPage() {
       </div>
 
       <div className="space-y-32">
-        <section id="polynode">
-          <ProductPolynode />
+        <section id="Polyedge">
+          <ProductPolyEdge />
         </section>
 
         <hr />

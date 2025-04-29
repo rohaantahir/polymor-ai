@@ -10,7 +10,7 @@ export default function HeroSection() {
   return (
     <div className="relative sm:px-6 container mx-auto min-h-[600px] sm:min-h-[700px] flex flex-col-reverse md:flex-row mt-[76px] sm:mt-10 md:pb-20">
       {/* Content on the left */}
-      <div className="relative z-[99] px-4 pt-[25px] md:pt-[0px] flex flex-col justify-center items-center md:items-start text-center md:text-left md:pb-20 md:w-1/2 mt-8 sm:mt-12 bg-black">
+      <div className="relative z-[99] px-4 pt-[25px] md:pt-[0px] flex flex-col justify-center items-center md:items-start text-center md:text-left md:pb-20 md:w-1/2 mt-8 sm:mt-12 bg-black md:bg-transparent">
         <Badge className="font-normal mb-4 sm:mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
           Polymor
         </Badge>

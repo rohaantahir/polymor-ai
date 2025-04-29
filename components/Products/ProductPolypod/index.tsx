@@ -10,8 +10,8 @@ const polypodVariants = [
     title: "Polypod™",
     subtitle: "Ultra High Density AI Optimized Data Center Pod",
     features: [
-      "Supports 8–12 high-density 47U racks per container",
-      "60–140kW per rack, with 4x NVIDIA H200 or similar AI servers",
+      "Supports 6-8 high-density 47U racks per container",
+      "60-140kW per rack, with 4x NVIDIA H200 or similar AI servers",
       "Liquid cooling (Direct-to-Chip or Cold Plate)",
       "N+1 or 2N redundant power and cooling infrastructure",
       "AI-ready and easily deployable",
@@ -24,7 +24,7 @@ const polypodVariants = [
     subtitle: "Scalable, Prefabricated Modular AI Data Centers",
     features: [
       "Stack multiple pods (up to 15) to build 20MW edge AI clusters",
-      "Rapid deployment: assembly in 3 weeks, testing in 1",
+      "Rapid deployment",
       "80% faster time to deployment, 30% cost savings",
       "PUE < 1.1 with advanced liquid cooling",
       "Ideal for telcos, ISPs, or regional AI edge nodes",

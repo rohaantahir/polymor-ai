@@ -94,13 +94,15 @@ export default function ProductsOverview() {
                 onMouseEnter={() => setHoveredProduct(0)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
-                <Image
-                  src="/overview-prod-1.png"
-                  className="border rounded-full mx-auto border-white/10 transition-transform duration-300 group-hover:scale-105"
-                  alt="Product 1"
-                  width={218}
-                  height={218}
-                />
+                <div className="relative w-[218px] h-[218px] overflow-hidden border rounded-full mx-auto border-white/10 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src="/polypod__1.png"
+                    className=""
+                    alt="Product 2"
+                    fill
+                    objectFit="contain"
+                  />
+                </div>
                 <Card className="absolute top-0 left-full ml-8 w-[420px] rounded-none p-0 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <CardContent className="p-0">
                     <div className="space-y-3">
@@ -127,13 +129,16 @@ export default function ProductsOverview() {
                 onMouseEnter={() => setHoveredProduct(1)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
-                <Image
-                  src="/overview-prod-2.png"
-                  className="border rounded-full mx-auto border-white/10 transition-transform duration-300 group-hover:scale-105"
-                  alt="Product 2"
-                  width={218}
-                  height={218}
-                />
+                <div className="relative w-[218px] h-[218px] overflow-hidden border rounded-full mx-auto border-white/10 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src="/polyrack.png"
+                    className=""
+                    alt="Product 2"
+                    fill
+                    objectFit="contain"
+                  />
+                </div>
+
                 <Card className="absolute right-full top-10 mr-8 w-[420px] rounded-none p-0 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <CardContent className="p-0">
                     <div className="space-y-3">

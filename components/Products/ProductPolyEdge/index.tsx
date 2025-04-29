@@ -50,7 +50,7 @@ export default function ProductPolyEdge() {
             alt="PolyEdge Network Diagram"
             width={400}
             height={400}
-            className="object-contain"
+            className="object-contain grayscale"
           />
         </div>
       </div>
@@ -107,14 +107,14 @@ export default function ProductPolyEdge() {
               </li>
             </ul>
           </div>
-          {/* <div className="relative h-[400px]">
+          <div className="relative h-[400px]">
             <Image
-              src="/polyedge.png"
+              src="/polyedge-sec-2.png"
               alt="Global Network"
               fill
-              className="object-contain"
+              className="object-contain grayscale"
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

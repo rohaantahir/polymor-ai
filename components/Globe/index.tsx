@@ -114,13 +114,22 @@ export default function Globe() {
     textureLoader.load(
       "/world-map-texture.png",
       (texture) => {
-        // Apply anisotropic filtering to improve texture quality
+        // Apply maximum anisotropic filtering to improve texture quality
         texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        texture.minFilter = THREE.LinearFilter;
+        // Use mipmapping for better texture quality at different distances
+        texture.minFilter = THREE.LinearMipmapLinearFilter;
         texture.magFilter = THREE.LinearFilter;
+        // Ensure texture wrapping is set correctly
+        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapT = THREE.ClampToEdgeWrapping;
+        // Increase texture sharpness
+        texture.generateMipmaps = true;
 
         if (globeRef.current) {
+          // Apply the texture to the globe material
           (globeRef.current.material as THREE.MeshPhongMaterial).map = texture;
+          // Increase material quality settings
+          (globeRef.current.material as THREE.MeshPhongMaterial).shininess = 10;
           (globeRef.current.material as THREE.MeshPhongMaterial).needsUpdate =
             true;
           setIsLoading(false);
@@ -190,23 +199,26 @@ export default function Globe() {
     locations.forEach((location) => {
       const position = latLngToVector3(location.lat, location.lng, radius);
 
-      // Create marker with glow effect
-      const markerSize = window.innerWidth < 768 ? 1 : 1.5;
-      const markerGeometry = new THREE.SphereGeometry(markerSize, 16, 16);
+      // Create marker with improved appearance
+      const markerSize = window.innerWidth < 768 ? 1.2 : 1.8;
+      const markerGeometry = new THREE.SphereGeometry(markerSize, 32, 32);
       const markerMaterial = new THREE.MeshBasicMaterial({
         color: new THREE.Color(location.color),
+        transparent: true,
+        opacity: 0.9,
       });
       const marker = new THREE.Mesh(markerGeometry, markerMaterial);
       marker.position.copy(position);
       scene.add(marker);
       markersRef.current.push(marker);
 
-      // Add pulse effect
-      const pulseGeometry = new THREE.SphereGeometry(markerSize, 16, 16);
+      // Add improved pulse effect
+      const pulseGeometry = new THREE.SphereGeometry(markerSize, 32, 32);
       const pulseMaterial = new THREE.ShaderMaterial({
         uniforms: {
           time: { value: 0 },
           color: { value: new THREE.Color(location.color) },
+          opacity: { value: 0.6 },
         },
         vertexShader: `
           varying vec3 vNormal;
@@ -218,10 +230,11 @@ export default function Globe() {
         fragmentShader: `
           uniform float time;
           uniform vec3 color;
+          uniform float opacity;
           varying vec3 vNormal;
           void main() {
-            float pulse = sin(time * 3.0) * 0.5 + 0.5;
-            gl_FragColor = vec4(color, pulse * 0.6);
+            float pulse = sin(time * 2.0) * 0.5 + 0.5;
+            gl_FragColor = vec4(color, pulse * opacity);
           }
         `,
         transparent: true,
@@ -236,36 +249,54 @@ export default function Globe() {
       // Store the pulse with the marker
       marker.userData = { pulse, pulseMaterial };
 
-      // Add text label
+      // Add text label with location info
       const textDiv = document.createElement("div");
       textDiv.className = "absolute text-white pointer-events-none";
       textDiv.style.color = location.color;
-      // textDiv.innerHTML = `
-      //   <div class="bg-black/50 px-2 py-1 rounded text-[10px] sm:text-xs">
-      //     ${location.name}
+      textDiv.style.opacity = "0";
+      textDiv.style.transition = "opacity 0.3s ease";
+      textDiv.style.zIndex = "10"; // Ensure labels appear above other elements
+      textDiv.style.position = "absolute"; // Ensure absolute positioning works correctly
+      //       textDiv.innerHTML = `
+      //   <div class="bg-black/80 px-2 py-1 rounded text-xs backdrop-blur-sm border border-${location.color.replace(
+      //     "#",
+      //     ""
+      //   )} shadow-lg whitespace-nowrap">
+      //     <div class="font-bold">${location.name}</div>
       //   </div>
       // `;
-      textDiv.style.opacity = "0";
-      containerRef?.current?.appendChild(textDiv);
+      // containerRef?.current?.appendChild(textDiv);
 
-      // Position the text
+      // Position the text and handle visibility
       const updateLabelPosition = () => {
         if (!cameraRef.current) return;
 
-        const vector = position.clone();
-        vector.project(cameraRef.current);
+        // Get the marker's position in world space
+        const markerPosition = position.clone();
 
+        // Project the marker position to screen coordinates
+        const vector = markerPosition.clone().project(cameraRef.current);
+
+        // Convert to screen coordinates
         const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
         const y = (-(vector.y * 0.5) + 0.5) * window.innerHeight;
 
-        textDiv.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+        // Position the label directly at the marker's projected position
+        textDiv.style.left = `${x}px`;
+        textDiv.style.top = `${y}px`;
+        textDiv.style.transform = "translate(-50%, -100%)"; // Center horizontally and position above
 
-        // Show label only if marker is in front of the globe
-        const dot = position
+        // Check if marker is visible to camera (in front of the globe)
+        const dot = markerPosition
           .clone()
           .normalize()
           .dot(cameraRef.current.position.clone().normalize());
-        textDiv.style.opacity = dot < 0 ? "0" : "1";
+        const isVisible = dot < 0;
+
+        // Only show labels for visible markers (those on the front side of the globe)
+        marker.visible = !isVisible;
+        pulse.visible = !isVisible;
+        textDiv.style.opacity = isVisible ? "0" : "1";
       };
 
       // Store the update function
@@ -273,9 +304,9 @@ export default function Globe() {
     });
 
     // Create connections between locations - Ensure all locations have connections
-    const connectedLocations = new Set<number>(); // Track which locations are connected
+    const connectedLocations = new Set<number>();
 
-    // First pass: Ensure each location has at least one connection
+    // First pass: Only connect each location to its closest neighbor
     for (let i = 0; i < locations.length; i++) {
       // If this location is already connected, skip to next
       if (connectedLocations.has(i)) continue;
@@ -321,36 +352,6 @@ export default function Globe() {
       }
     }
 
-    // Second pass: Add random additional connections for visual interest
-    for (let i = 0; i < locations.length; i++) {
-      for (let j = i + 1; j < locations.length; j++) {
-        // Skip if we already created a guaranteed connection between these points
-        if (
-          connectedLocations.has(i) &&
-          connectedLocations.has(j) &&
-          Math.random() > 0.3
-        )
-          continue;
-
-        const startPosition = latLngToVector3(
-          locations[i].lat,
-          locations[i].lng,
-          radius
-        );
-        const endPosition = latLngToVector3(
-          locations[j].lat,
-          locations[j].lng,
-          radius
-        );
-
-        createConnection(startPosition, endPosition);
-
-        // Mark both locations as connected
-        connectedLocations.add(i);
-        connectedLocations.add(j);
-      }
-    }
-
     // Helper function to create a connection between two points
     function createConnection(
       startPosition: THREE.Vector3,
@@ -365,11 +366,12 @@ export default function Globe() {
         .addVectors(startVec, endVec)
         .normalize();
 
-      // Adjust the height of the curve
-      const midPoint = midVec.multiplyScalar(radius * 1.3);
+      // Reduce the height of the curve for a more subtle effect
+      const midPoint = midVec.multiplyScalar(radius * 1.15);
 
       // Create a quadratic bezier curve with more points for smoother curves
-      for (let t = 0; t <= 1; t += 0.005) {
+      for (let t = 0; t <= 1; t += 0.01) {
+        // Reduced number of points
         const point = new THREE.Vector3();
         // Quadratic bezier curve formula
         point.x =
@@ -391,19 +393,26 @@ export default function Globe() {
         curvePoints
       );
 
-      // Create a glowing line material with increased opacity
+      // Create a more subtle line material
       const curveMaterial = new THREE.LineBasicMaterial({
         color: new THREE.Color("#fff"),
         transparent: true,
-        opacity: 0.8,
-        linewidth: 1.5,
+        opacity: 0.4, // Reduced opacity
+        linewidth: 1,
       });
 
       const curve = new THREE.Line(curveGeometry, curveMaterial);
       scene.add(curve);
       linesRef.current.push(curve);
 
-      // Create particle system for this connection
+      // Store the start and end positions for visibility check
+      curve.userData = {
+        startPosition: startPosition.clone(),
+        endPosition: endPosition.clone(),
+        midPoint: midPoint.clone(),
+      };
+
+      // Create particle system for this connection with reduced particles
       createParticleSystem(startPosition, endPosition, midPoint);
     }
 
@@ -413,7 +422,7 @@ export default function Globe() {
       end: THREE.Vector3,
       mid: THREE.Vector3
     ) {
-      const particleCount = 30; // Increased from 20 to 30
+      const particleCount = 15; // Reduced from 30 to 15
       const positions = new Float32Array(particleCount * 3);
       const velocities: number[] = [];
       const sizes = new Float32Array(particleCount);
@@ -435,11 +444,11 @@ export default function Globe() {
         positions[i * 3 + 1] = y;
         positions[i * 3 + 2] = z;
 
-        // Random velocity
-        velocities.push(0.005 + Math.random() * 0.01);
+        // Slower velocity
+        velocities.push(0.003 + Math.random() * 0.005);
 
-        // Random size
-        sizes[i] = 0.5 + Math.random() * 1.5;
+        // Smaller size
+        sizes[i] = 0.3 + Math.random() * 0.7;
       }
 
       const geometry = new THREE.BufferGeometry();
@@ -449,7 +458,7 @@ export default function Globe() {
       );
       geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
-      // Create shader material for particles
+      // Create shader material for particles with reduced opacity
       const material = new THREE.ShaderMaterial({
         uniforms: {
           color: { value: new THREE.Color("#4cc9f0") },
@@ -463,7 +472,7 @@ export default function Globe() {
           void main() {
             vColor = vec3(0.3, 0.8, 0.95);
             vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = size * (300.0 / -mvPosition.z);
+            gl_PointSize = size * (200.0 / -mvPosition.z); // Reduced size
             gl_Position = projectionMatrix * mvPosition;
           }
         `,
@@ -472,9 +481,9 @@ export default function Globe() {
           uniform sampler2D pointTexture;
           varying vec3 vColor;
           void main() {
-            gl_FragColor = vec4(color, 1.0);
+            gl_FragColor = vec4(color, 0.6); // Reduced opacity
             gl_FragColor = gl_FragColor * texture2D(pointTexture, gl_PointCoord);
-            if (gl_FragColor.a < 0.3) discard;
+            if (gl_FragColor.a < 0.2) discard;
           }
         `,
         blending: THREE.AdditiveBlending,
@@ -490,7 +499,7 @@ export default function Globe() {
         positions,
         velocities,
         startTime: Date.now(),
-        duration: 10000 + Math.random() * 5000,
+        duration: 15000 + Math.random() * 5000, // Slower movement
         from: [start.x, start.y, start.z],
         to: [end.x, end.y, end.z],
       });
@@ -514,6 +523,30 @@ export default function Globe() {
             marker.userData.pulseMaterial.uniforms.time.value =
               Date.now() * 0.001;
           }
+        }
+      });
+
+      // Update line visibility
+      linesRef.current.forEach((line) => {
+        if (line.userData && cameraRef.current) {
+          const { startPosition, endPosition, midPoint } = line.userData;
+
+          // Check if both endpoints are behind the globe
+          const startDot = startPosition
+            .clone()
+            .normalize()
+            .dot(cameraRef.current.position.clone().normalize());
+          const endDot = endPosition
+            .clone()
+            .normalize()
+            .dot(cameraRef.current.position.clone().normalize());
+          const midDot = midPoint
+            .clone()
+            .normalize()
+            .dot(cameraRef.current.position.clone().normalize());
+
+          // Hide the line if all points are behind the globe
+          line.visible = !(startDot < 0 && endDot < 0 && midDot < 0);
         }
       });
 

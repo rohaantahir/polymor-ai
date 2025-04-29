@@ -119,6 +119,28 @@ export default function ContactPage() {
                     Unit E, 31/F, Tower B, Billion Centre, Kowloon Bay
                   </p>
                 </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">Shenzhen</h3>
+                  <p className="text-white/70">
+                    Unit 1705, 17/F, Seaview Plaza, Shekou, Nanshan
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">Shanghai</h3>
+                  <p className="text-white/70">
+                    Building TA, Wanxiang Enterprise Center, 208 Haojing Road,
+                    Minhang
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">Las Vegas</h3>
+                  <p className="text-white/70">
+                    1050 E Flamingo Road, Las Vegas, Nevada, USA
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>

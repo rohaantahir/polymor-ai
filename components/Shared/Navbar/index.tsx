@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`bg-background/80 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`bg-background/80 px-4 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-background/80 backdrop-blur-md border-b border-white/10"
           : "bg-transparent"

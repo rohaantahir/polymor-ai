@@ -5,17 +5,14 @@ export default function Footer() {
   return (
     <footer className="bg-black/30 border-t border-white/10 py-16 container mx-auto px-4">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           <div className="space-y-6">
             <Logo />
-            <p className="text-white/60 text-sm pl-2 pt-2">
+            <p className="text-white/60 text-sm pt-2">
               Building the world's first intelligent edge AI nervous system—a
               decentralized network of high-performance nodes.
             </p>
           </div>
-
-          <div></div>
-          <div></div>
 
           <div>
             <h3 className="text-lg font-medium mb-4">Contact</h3>
@@ -29,6 +26,33 @@ export default function Footer() {
                 <br />
                 Unit E, 31/F, Tower B, Billion Centre, Kowloon Bay
               </li>
+              <li className="text-white/60">
+                <strong className="text-white">Shenzhen:</strong>
+                <br />
+                Unit 1705, 17/F, Seaview Plaza, Shekou, Nanshan
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <ul className="space-y-3 md:mt-12">
+              <li className="text-white/60">
+                <strong className="text-white">Shanghai:</strong>
+                <br />
+                Building TA, Wanxiang Enterprise Center, 208 Haojing Road,
+                Minhang
+              </li>
+              <li className="text-white/60">
+                <strong className="text-white">Las Vegas:</strong>
+                <br />
+                1050 E Flamingo Road, Las Vegas, Nevada, USA
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-medium mb-4">Email</h3>
+            <ul className="space-y-3">
               <li>
                 <a
                   href="mailto:contact@polymor.ai"

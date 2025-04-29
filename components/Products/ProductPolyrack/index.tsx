@@ -25,11 +25,12 @@ export default function ProductPolyrack() {
             efficiency and density.
           </p>
         </div>
-        <div className="relative h-[400px] w-full">
+        <div className="w-full lg:pl-40">
           <Image
             src="/polyrack.png"
             alt="Polyrack"
-            fill
+            width={300}
+            height={300}
             className="object-contain"
           />
         </div>

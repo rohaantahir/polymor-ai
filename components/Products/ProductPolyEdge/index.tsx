@@ -44,11 +44,12 @@ export default function ProductPolyEdge() {
             Powering the Next Generation of Autonomous and agentic systems
           </p>
         </div>
-        <div className="relative h-[400px] w-full">
+        <div className="w-full lg:pl-40">
           <Image
-            src="/polyedge.png"
+            src="/polyedge2.png"
             alt="PolyEdge Network Diagram"
-            fill
+            width={400}
+            height={400}
             className="object-contain"
           />
         </div>
@@ -106,14 +107,14 @@ export default function ProductPolyEdge() {
               </li>
             </ul>
           </div>
-          <div className="relative h-[400px]">
+          {/* <div className="relative h-[400px]">
             <Image
               src="/polyedge.png"
               alt="Global Network"
               fill
               className="object-contain"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

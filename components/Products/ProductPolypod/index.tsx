@@ -16,7 +16,7 @@ const polypodVariants = [
       "N+1 or 2N redundant power and cooling infrastructure",
       "AI-ready and easily deployable",
     ],
-    image: "/polypod.png",
+    // image: "/polypod.png",
   },
   {
     id: "polypod-hive",
@@ -61,7 +61,7 @@ export default function ProductPolypod() {
         </div>
         <div className="relative h-[400px] w-full">
           <Image
-            src="/polypod.png"
+            src="/polypod (1).png"
             alt="Polypod Concept"
             fill
             className="object-contain"
@@ -91,14 +91,16 @@ export default function ProductPolypod() {
                   ))}
                 </ul>
               </div>
-              <div className="relative h-[400px] w-full">
-                <Image
-                  src={variant.image || "/placeholder.svg"}
-                  alt={variant.title}
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              {variant.image ? (
+                <div className="relative h-[400px] w-full">
+                  <Image
+                    src={variant.image}
+                    alt={variant.title}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              ) : null}
             </div>
           </TabsContent>
         ))}

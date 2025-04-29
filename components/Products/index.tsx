@@ -1,12 +1,25 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import ProductPolyEdge from "./ProductPolyEdge";
 import ProductPolypod from "./ProductPolypod";
 import ProductPolyrack from "./ProductPolyrack";
+import { motion } from "framer-motion";
 
 export default function ProductsPage() {
   return (
-    <div className="container mx-auto py-16 px-4">
-      <div className="text-center mb-16">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="container mx-auto py-16 px-4"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="text-center mb-16"
+      >
         <Badge className="font-normal mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
           Our Products
         </Badge>
@@ -16,25 +29,48 @@ export default function ProductsPage() {
           orchestration, Polymor builds the infrastructure for AI to thrive
           everywhere.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="space-y-32">
-        <section id="Polyedge">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="space-y-32"
+      >
+        <motion.section
+          id="Polyedge"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <ProductPolyEdge />
-        </section>
+        </motion.section>
 
         <hr />
 
-        <section id="polypod">
+        <motion.section
+          id="polypod"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <ProductPolypod />
-        </section>
+        </motion.section>
 
         <hr />
 
-        <section id="polyrack">
+        <motion.section
+          id="polyrack"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <ProductPolyrack />
-        </section>
-      </div>
-    </div>
+        </motion.section>
+      </motion.div>
+    </motion.div>
   );
 }

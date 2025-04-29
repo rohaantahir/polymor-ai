@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const product_one = [
   {
@@ -44,14 +45,33 @@ export default function ProductsOverview() {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
   return (
-    <div className="overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="overflow-hidden"
+    >
       <div className="container mx-auto text-center py-10 md:py-20">
-        <Badge className="font-normal mb-4 text-themeBlue bg-themeBlue/5 hover:bg-themeBlue/10">
-          Products Overview
-        </Badge>
-        <h2 className="mb-4">Products Overview</h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <Badge className="font-normal mb-4 text-themeBlue bg-themeBlue/5 hover:bg-themeBlue/10">
+            Products Overview
+          </Badge>
+          <h2 className="mb-4">Products Overview</h2>
+        </motion.div>
 
-        <div className="relative w-fit max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="relative w-fit max-w-6xl mx-auto"
+        >
           {/* Mobile View */}
           <div className="md:hidden flex flex-col items-center gap-12 mb-12">
             {[product_one, product_two, product_three].map(
@@ -206,9 +226,9 @@ export default function ProductsOverview() {
               endDotGlowing={hoveredProduct === 2}
             />
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

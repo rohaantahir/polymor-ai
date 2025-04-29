@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const features = [
   "32–64 GPUs per rack",
@@ -14,7 +15,12 @@ const features = [
 export default function ProductPolyrack() {
   return (
     <div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
+      >
         <div className="space-y-3">
           <Badge className="font-normal text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
             High-Energy Density, Liquid-Cooled Server Rack
@@ -34,9 +40,14 @@ export default function ProductPolyrack() {
             className="object-contain"
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16"
+      >
         <Card className="bg-gradient-to-r from-themeBlue/5 rounded-none border border-white/10 bg-transparent overflow-hidden">
           <CardContent className="p-0">
             {/* <div className="relative h-[300px] w-full">
@@ -83,19 +94,30 @@ export default function ProductPolyrack() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
-      <div className="bg-gradient-to-r from-themeBlue/5 to-transparent p-8 border border-white/10">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="bg-gradient-to-r from-themeBlue/5 to-transparent p-8 border border-white/10"
+      >
         <h3 className="text-2xl font-semibold mb-6">Key Features</h3>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-3">
+            <motion.li
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+              className="flex items-start gap-3"
+            >
               <span className="text-themeBlue">•</span>
               <p className="text-white/70">{feature}</p>
-            </li>
+            </motion.li>
           ))}
         </ul>
-      </div>
+      </motion.div>
     </div>
   );
 }

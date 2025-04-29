@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle2, Server, Snowflake, Zap, Boxes } from "lucide-react";
+import { motion } from "framer-motion";
 
 const polypodVariants = [
   {
@@ -46,9 +47,41 @@ const polypodVariants = [
 ];
 
 export default function ProductPolypod() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <div className="space-y-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <motion.div
+      className="space-y-16"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={containerVariants}
+    >
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+        variants={itemVariants}
+      >
         <div className="space-y-3">
           <Badge className="font-normal text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
             Build Edge AIDC like Legos
@@ -67,86 +100,121 @@ export default function ProductPolypod() {
             className="object-contain"
           />
         </div>
-      </div>
+      </motion.div>
 
-      <Tabs defaultValue="polypod">
-        <TabsList className="grid grid-cols-3 mb-12">
-          <TabsTrigger value="polypod">Polypod™</TabsTrigger>
-          <TabsTrigger value="polypod-hive">PolyPod Hive™</TabsTrigger>
-          <TabsTrigger value="polypod-go">PolyPod Go™</TabsTrigger>
-        </TabsList>
+      <motion.div variants={itemVariants}>
+        <Tabs defaultValue="polypod">
+          <TabsList className="grid grid-cols-3 mb-12">
+            <TabsTrigger value="polypod">Polypod™</TabsTrigger>
+            <TabsTrigger value="polypod-hive">PolyPod Hive™</TabsTrigger>
+            <TabsTrigger value="polypod-go">PolyPod Go™</TabsTrigger>
+          </TabsList>
 
-        {polypodVariants.map((variant) => (
-          <TabsContent key={variant.id} value={variant.id} className="mt-0">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-3xl font-semibold mb-4">{variant.title}</h3>
-                <p className="text-lg text-white/70 mb-6">{variant.subtitle}</p>
-                <ul className="space-y-4">
-                  {variant.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-4">
-                      <CheckCircle2 className="w-6 h-6 text-themeBlue flex-shrink-0 mt-1" />
-                      <p className="text-lg text-white/70">{feature}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {variant.image ? (
-                <div className="relative h-[400px] w-full">
-                  <Image
-                    src={variant.image}
-                    alt={variant.title}
-                    fill
-                    className="object-contain"
-                  />
+          {polypodVariants.map((variant) => (
+            <TabsContent key={variant.id} value={variant.id} className="mt-0">
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div>
+                  <h3 className="text-3xl font-semibold mb-4">
+                    {variant.title}
+                  </h3>
+                  <p className="text-lg text-white/70 mb-6">
+                    {variant.subtitle}
+                  </p>
+                  <ul className="space-y-4">
+                    {variant.features.map((feature, index) => (
+                      <motion.li
+                        key={index}
+                        className="flex items-start gap-4"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <CheckCircle2 className="w-6 h-6 text-themeBlue flex-shrink-0 mt-1" />
+                        <p className="text-lg text-white/70">{feature}</p>
+                      </motion.li>
+                    ))}
+                  </ul>
                 </div>
-              ) : null}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+                {variant.image ? (
+                  <motion.div
+                    className="relative h-[400px] w-full"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <Image
+                      src={variant.image}
+                      alt={variant.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </motion.div>
+                ) : null}
+              </motion.div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </motion.div>
 
-      <div className="bg-gradient-to-r from-themeBlue/5 via-themeBlue/10 to-transparent px-10 py-8 border border-white/10 rounded-none">
+      <motion.div
+        className="bg-gradient-to-r from-themeBlue/5 via-themeBlue/10 to-transparent px-10 py-8 border border-white/10 rounded-none"
+        variants={itemVariants}
+      >
         <h3 className="text-3xl font-semibold mb-8">Optimized for AI Usage</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
-            <CardContent className="p-8">
-              <div className="w-20 h-20 mb-8 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-                <Server className="w-12 h-12 text-themeBlue" />
-              </div>
-              <h4 className="text-2xl font-semibold mb-4">High Density</h4>
-              <p className="text-white/70">
-                Purpose-built for AI workloads with ultra-high density
-                configurations supporting the latest AI accelerators.
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
-            <CardContent className="p-8">
-              <div className="w-20 h-20 mb-8 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-                <Snowflake className="w-12 h-12 text-themeBlue" />
-              </div>
-              <h4 className="text-2xl font-semibold mb-4">Efficient Cooling</h4>
-              <p className="text-white/70">
-                Advanced liquid cooling systems designed specifically for the
-                thermal demands of AI hardware.
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
-            <CardContent className="p-8">
-              <div className="w-20 h-20 mb-8 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-                <Zap className="w-12 h-12 text-themeBlue" />
-              </div>
-              <h4 className="text-2xl font-semibold mb-4">Rapid Deployment</h4>
-              <p className="text-white/70">
-                Prefabricated, modular design allows for quick installation and
-                scaling to meet growing AI compute demands.
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div variants={itemVariants}>
+            <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
+              <CardContent className="p-8">
+                <div className="w-20 h-20 mb-8 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                  <Server className="w-12 h-12 text-themeBlue" />
+                </div>
+                <h4 className="text-2xl font-semibold mb-4">High Density</h4>
+                <p className="text-white/70">
+                  Purpose-built for AI workloads with ultra-high density
+                  configurations supporting the latest AI accelerators.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
+              <CardContent className="p-8">
+                <div className="w-20 h-20 mb-8 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                  <Snowflake className="w-12 h-12 text-themeBlue" />
+                </div>
+                <h4 className="text-2xl font-semibold mb-4">
+                  Efficient Cooling
+                </h4>
+                <p className="text-white/70">
+                  Advanced liquid cooling systems designed specifically for the
+                  thermal demands of AI hardware.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
+              <CardContent className="p-8">
+                <div className="w-20 h-20 mb-8 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                  <Zap className="w-12 h-12 text-themeBlue" />
+                </div>
+                <h4 className="text-2xl font-semibold mb-4">
+                  Rapid Deployment
+                </h4>
+                <p className="text-white/70">
+                  Prefabricated, modular design allows for quick installation
+                  and scaling to meet growing AI compute demands.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

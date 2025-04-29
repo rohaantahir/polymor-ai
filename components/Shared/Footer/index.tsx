@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-black/30 border-t border-white/10 py-16 container mx-auto px-4">
+    <footer className="border-t border-white/10 py-16 container mx-auto px-4">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-6">
             <Logo />
             <p className="text-white/60 text-sm pt-2">
@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <ul className="space-y-3 md:mt-12">
+            <ul className="space-y-3 md:mt-12 -mt-12">
               <li className="text-white/60">
                 <strong className="text-white">Shanghai:</strong>
                 <br />

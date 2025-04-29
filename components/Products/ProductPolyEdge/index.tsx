@@ -1,7 +1,10 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Server, Cpu, Network, Database, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -33,8 +36,18 @@ const features = [
 
 export default function ProductPolyEdge() {
   return (
-    <div className="space-y-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="space-y-16"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+      >
         <div className="space-y-3">
           <Badge className="font-normal text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
             The Global AI Orchestration Network
@@ -44,7 +57,12 @@ export default function ProductPolyEdge() {
             Powering the Next Generation of Autonomous and agentic systems
           </p>
         </div>
-        <div className="w-full lg:pl-40">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="w-full lg:pl-40"
+        >
           <Image
             src="/polyedge2.png"
             alt="PolyEdge Network Diagram"
@@ -52,34 +70,58 @@ export default function ProductPolyEdge() {
             height={400}
             className="object-contain grayscale"
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
         <h3 className="text-3xl font-semibold mb-12 text-center">
           Core Features
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card
+            <motion.div
               key={index}
-              className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
             >
-              <CardContent className="p-8">
-                <div className="w-16 h-16 mb-6 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-                  <feature.icon className="w-10 h-10 text-themeBlue" />
-                </div>
-                <h4 className="text-2xl font-semibold mb-3">{feature.title}</h4>
-                <p className="text-white/70">{feature.description}</p>
-              </CardContent>
-            </Card>
+              <Card className="rounded-none border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 mb-6 relative group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                    <feature.icon className="w-10 h-10 text-themeBlue" />
+                  </div>
+                  <h4 className="text-2xl font-semibold mb-3">
+                    {feature.title}
+                  </h4>
+                  <p className="text-white/70">{feature.description}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-      <div className="bg-gradient-to-r from-themeBlue/5 via-themeBlue/10 to-transparent p-12 border border-white/10 rounded-none">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="bg-gradient-to-r from-themeBlue/5 via-themeBlue/10 to-transparent p-12 border border-white/10 rounded-none"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-6"
+          >
             <h3 className="text-3xl font-semibold mb-8">
               Global Routing & Inference Network
             </h3>
@@ -106,17 +148,23 @@ export default function ProductPolyEdge() {
                 <span>Ultra-low latency inference delivery</span>
               </li>
             </ul>
-          </div>
-          <div className="relative h-[400px]">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="relative h-[400px]"
+          >
             <Image
               src="/polyedge-sec-2.png"
               alt="Global Network"
               fill
               className="object-contain grayscale"
             />
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

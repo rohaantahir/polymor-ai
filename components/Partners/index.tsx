@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 
-const cardHoverVariants = {
+const cardVariants = {
   hover: {
     y: -10,
     scale: 1.02,
@@ -17,6 +17,18 @@ const cardHoverVariants = {
       "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     transition: {
       duration: 0.3,
+    },
+  },
+  hidden: (index: number) => ({
+    opacity: 0,
+    x: index % 2 === 0 ? -100 : 100,
+  }),
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
     },
   },
 };
@@ -65,8 +77,18 @@ const benefits: Benefit[] = [
 
 export default function PartnersPage() {
   return (
-    <div className="container mx-auto py-16">
-      <div className="text-center mb-16">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="container mx-auto py-16"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="text-center mb-16"
+      >
         <Badge className="font-normal mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
           PolyEdge Partners
         </Badge>
@@ -78,9 +100,14 @@ export default function PartnersPage() {
           infrastructure economy by deploying compute nodes and earning revenue
           from global AI workload demand.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24"
+      >
         <div className="relative h-[400px] w-full">
           <Image
             src="/polypod-cloud.png"
@@ -124,9 +151,14 @@ export default function PartnersPage() {
             </li>
           </ul>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="mb-24">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="mb-24"
+      >
         <h2 className="text-3xl font-bold mb-12 text-center">
           Why Become a PolyEdge Partner?
         </h2>
@@ -161,7 +193,13 @@ export default function PartnersPage() {
                 />
               </div>
 
-              <motion.div whileHover="hover" variants={cardHoverVariants}>
+              <motion.div
+                whileHover="hover"
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                custom={index}
+              >
                 <Card className="rounded-none border-2 border-white/10 bg-gradient-to-br from-themeBlue/5 to-themeBlue/10 backdrop-blur-sm overflow-hidden w-full max-w-md relative z-10 shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-6">
@@ -189,9 +227,14 @@ export default function PartnersPage() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-      <div className="text-center mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        className="text-center mb-16"
+      >
         <h2 className="text-3xl font-bold mb-6">
           Host the Future. Get Paid to Accelerate It.
         </h2>
@@ -201,7 +244,7 @@ export default function PartnersPage() {
         >
           <Link href="/contact">Join our global network now!</Link>
         </Button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -54,6 +54,30 @@ const itemVariants = {
   },
 };
 
+const textVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const badgeVariants = {
+  hidden: { scale: 0.8, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
 const cardHoverVariants = {
   hover: {
     y: -10,
@@ -62,6 +86,21 @@ const cardHoverVariants = {
       "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     transition: {
       duration: 0.3,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: (index: number) => ({
+    x: index % 2 === 0 ? -100 : 100,
+    opacity: 0,
+  }),
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
     },
   },
 };
@@ -90,12 +129,23 @@ export default function HowItWorks() {
           className="relative z-10"
         >
           <motion.div variants={itemVariants} className="text-center mb-16">
-            <Badge className="font-normal mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15 mx-auto block w-fit">
-              How It Works
-            </Badge>
-            <h2 className="text-center mb-16">
+            <motion.div
+              variants={badgeVariants}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+            >
+              <Badge className="font-normal mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15 mx-auto block w-fit">
+                How It Works
+              </Badge>
+            </motion.div>
+            <motion.h2
+              className="text-center mb-16"
+              variants={textVariants}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+            >
               Deploy a Node. Join the Network. Earn from the AI Boom.
-            </h2>
+            </motion.h2>
           </motion.div>
 
           <div className="space-y-8 max-w-6xl mx-auto relative">
@@ -105,10 +155,10 @@ export default function HowItWorks() {
             {steps.map((step, index) => (
               <motion.div
                 key={index}
-                variants={{
-                  ...itemVariants,
-                  hover: cardHoverVariants.hover,
-                }}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
                 whileHover="hover"
                 className={`flex ${
                   index % 2 === 0 ? "justify-start" : "justify-end"

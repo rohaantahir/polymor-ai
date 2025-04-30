@@ -272,14 +272,6 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <Button
-                  type="submit"
-                  className="rounded-none px-8 h-12 text-base bg-themeBlue text-black hover:bg-themeBlue/90 font-medium w-full"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-
                 {submitStatus === "success" && (
                   <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 text-green-500 rounded">
                     Thank you for your message! We'll get back to you soon.
@@ -292,6 +284,14 @@ export default function ContactPage() {
                     later.
                   </div>
                 )}
+
+                <Button
+                  type="submit"
+                  className="rounded-none px-8 h-12 text-base bg-themeBlue text-black hover:bg-themeBlue/90 font-medium w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
               </form>
             </CardContent>
           </Card>

@@ -405,13 +405,13 @@ export default function HeroSection() {
   ];
 
   return (
-    <div className="relative sm:px-6 container mx-auto min-h-[600px] sm:min-h-[700px] flex flex-col-reverse md:flex-row mt-[76px] sm:mt-10 md:pb-20">
+    <div className="relative container px-4 mx-auto min-h-[600px] sm:min-h-[700px] flex flex-col-reverse md:flex-row mt-[76px] sm:mt-10 md:pb-20">
       {/* Content on the left */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-[30] px-4 pt-[25px] md:pt-[0px] flex flex-col justify-center items-center md:items-start text-center md:text-left md:pb-20 md:w-1/2 mt-8 sm:mt-12"
+        className="relative z-[30] pt-[25px] md:pt-[0px] flex flex-col justify-center items-center md:items-start text-center md:text-left md:pb-20 md:w-[40%] mt-8 sm:mt-12"
       >
         <Badge className="font-normal mb-4 sm:mb-6 text-themeBlue bg-themeBlue/10 hover:bg-themeBlue/15">
           Polymor
@@ -446,7 +446,7 @@ export default function HeroSection() {
       </motion.div>
 
       {/* Globe on the right */}
-      <div className="relative md:w-2/3 h-[400px] sm:h-[500px] md:h-[750px]">
+      <div className="relative md:w-[60%] h-[400px] sm:h-[500px] xl:h-[750px]">
         <div className="absolute inset-0 z-0">
           <World globeConfig={globeConfig} data={sampleArcs} />
         </div>
